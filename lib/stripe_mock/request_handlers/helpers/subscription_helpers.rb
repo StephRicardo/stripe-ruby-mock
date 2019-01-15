@@ -28,14 +28,17 @@ module StripeMock
         now = Time.now.utc.to_i
         created_time = options[:created] || now
         start_time = options[:current_period_start] || now
+        # TODO: Test this item. Billing cycle anchor should match start time if none is specified.
+        billing_cycle_anchor = options[:billing_cycle_anchor] || start_time
         params = { customer: cus[:id], current_period_start: start_time, created: created_time }
         params.merge!({ :plan => (plans.size == 1 ? plans.first : nil) })
         params.merge! options.select {|k,v| k =~ /application_fee_percent|quantity|metadata|tax_percent/}
         # TODO: Implement coupon logic
 
         if (((plan && plan[:trial_period_days]) || 0) == 0 && options[:trial_end].nil?) || options[:trial_end] == "now"
-          end_time = options[:billing_cycle_anchor] || get_ending_time(start_time, plan)
-          params.merge!({status: 'active', current_period_end: end_time, trial_start: nil, trial_end: nil, billing_cycle_anchor: options[:billing_cycle_anchor]})
+          # TODO: Test this item. End time was previously set to billing cycle anchor if one was specified. Billing cycle should match start time not end time
+          end_time = get_ending_time(start_time, plan)
+          params.merge!({status: 'active', current_period_end: end_time, trial_start: nil, trial_end: nil, billing_cycle_anchor: billing_cycle_anchor})
         else
           end_time = options[:trial_end] || (Time.now.utc.to_i + plan[:trial_period_days]*86400)
           params.merge!({status: 'trialing', current_period_end: end_time, trial_start: start_time, trial_end: end_time, billing_cycle_anchor: nil})
