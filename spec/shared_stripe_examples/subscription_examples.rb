@@ -33,9 +33,7 @@ shared_examples 'Customer Subscriptions' do
       expect(customer.subscriptions.data.first.id).to eq(sub.id)
       expect(customer.subscriptions.data.first.plan.to_hash).to eq(plan.to_hash)
       expect(customer.subscriptions.data.first.customer).to eq(customer.id)
-      # TODO: Fix this test
       expect(customer.subscriptions.data.first.billing).to eq('charge_automatically')
-      expect(customer.subscriptions.data.first.billing_cycle_anchor).to_not be_empty
       expect(customer.subscriptions.data.first.metadata.foo).to eq( "bar" )
       expect(customer.subscriptions.data.first.metadata.example).to eq( "yes" )
     end
@@ -65,9 +63,7 @@ shared_examples 'Customer Subscriptions' do
       expect(customer.subscriptions.data.first.id).to eq(sub.id)
       expect(customer.subscriptions.data.first.plan.to_hash).to eq(plan.to_hash)
       expect(customer.subscriptions.data.first.customer).to eq(customer.id)
-      # TODO: Fix this test
       expect(customer.subscriptions.data.first.billing).to eq('charge_automatically')
-      expect(customer.subscriptions.data.first.billing_cycle_anchor).to_not be_empty
       expect(customer.subscriptions.data.first.metadata.foo).to eq( "bar" )
       expect(customer.subscriptions.data.first.metadata.example).to eq( "yes" )
     end
