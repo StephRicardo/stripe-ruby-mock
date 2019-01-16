@@ -7,6 +7,19 @@
   "data": {
     "object": {
       "id": "su_00000000000000",
+      "object": "subscription",
+      "start": 1381080561,
+      "status": "active",
+      "customer": "cus_00000000000000",
+      "cancel_at_period_end": false,
+      "current_period_start": 1381080561,
+      "current_period_end": 1383758961,
+      "ended_at": null,
+      "trial_start": null,
+      "trial_end": null,
+      "canceled_at": null,
+      "quantity": 1,
+      "application_fee_percent": null,
       "items": {
         "object": "list",
         "data": [{
@@ -47,19 +60,9 @@
           }
         ]
       },
-      "object": "subscription",
-      "start": 1381080561,
-      "status": "active",
-      "customer": "cus_00000000000000",
-      "cancel_at_period_end": false,
-      "current_period_start": 1381080561,
-      "current_period_end": 1383758961,
-      "ended_at": null,
-      "trial_start": null,
-      "trial_end": null,
-      "canceled_at": null,
-      "quantity": 1,
-      "application_fee_percent": null
+      "plan": {
+        "id": "fkx0AFo_00000000000000"
+      }
     },
     "previous_attributes": {
       "plan": {
