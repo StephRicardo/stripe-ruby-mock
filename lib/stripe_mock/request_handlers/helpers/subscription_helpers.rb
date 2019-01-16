@@ -29,7 +29,7 @@ module StripeMock
         created_time = options[:created] || now
         start_time = options[:current_period_start] || now
         # TODO: Test this item. Billing cycle anchor should match start time if none is specified.
-        billing_cycle_anchor = options[:billing_cycle_anchor] || start_time
+        billing_cycle_anchor = get_billing_cycle_anchor(options[:billing_cycle_anchor], start_time)
         params = { customer: cus[:id], current_period_start: start_time, created: created_time }
         params.merge!({ :plan => (plans.size == 1 ? plans.first : nil) })
         params.merge! options.select {|k,v| k =~ /application_fee_percent|quantity|metadata|tax_percent/}
@@ -88,6 +88,11 @@ module StripeMock
         else
           start_time
         end
+      end
+
+      def get_billing_cycle_anchor(billing_cycle_anchor, start_time)
+        return DateTime.now.to_i if billing_cycle_anchor == 'now'
+        billing_cycle_anchor || start_time
       end
 
       def verify_trial_end(trial_end)
