@@ -124,10 +124,9 @@ module StripeMock
         end
 
         # Allows cancel_at_period_end to be modifiable during creation
-        if params[:cancel_at_period_end]
-          subscription[:cancel_at_period_end] = params[:cancel_at_period_end]
-          subscription[:canceled_at] = DateTime.now
-        end
+        subscription[:cancel_at_period_end] = params[:cancel_at_period_end]
+        subscription[:canceled_at] = DateTime.now if params[:cancel_at_period_end]
+
 
         subscriptions[subscription[:id]] = subscription
         add_subscription_to_customer(customer, subscription)
@@ -190,10 +189,8 @@ module StripeMock
         verify_card_present(customer, subscription_plans.first, subscription)
 
         # Allows cancel_at_period_end to be updated
-        if params[:cancel_at_period_end]
-          subscription[:cancel_at_period_end] = params[:cancel_at_period_end]
-          subscription[:canceled_at] = DateTime.now
-        end
+        subscription[:cancel_at_period_end] = params[:cancel_at_period_end]
+        subscription[:canceled_at] = DateTime.now if params[:cancel_at_period_end]
 
         params[:current_period_start] = subscription[:current_period_start]
         subscription = resolve_subscription_changes(subscription, subscription_plans, customer, params)
