@@ -123,6 +123,12 @@ module StripeMock
           end
         end
 
+        # Allows cancel_at_period_end to be modifiable during creation
+        if params[:cancel_at_period_end]
+          subscription[:cancel_at_period_end] = params[:cancel_at_period_end]
+          subscription[:canceled_at] = DateTime.now
+        end
+
         subscriptions[subscription[:id]] = subscription
         add_subscription_to_customer(customer, subscription)
 
